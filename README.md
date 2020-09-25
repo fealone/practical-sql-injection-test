@@ -6,6 +6,13 @@
 docker-compose up --build
 ```
 
+## Prepare
+
+```shell
+cd src
+./init.sh
+```
+
 ## SQL Injection test
 
 ### Check standard
