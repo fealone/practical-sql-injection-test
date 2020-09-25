@@ -1,0 +1,25 @@
+version: '2'
+services:
+  mysql:
+    image: mysql:8.0
+    volumes:
+      - ./mysql/data:/var/lib/mysql
+    environment:
+      - MYSQL_DATABASE=injection_test
+      - MYSQL_USER=injection_test
+      - MYSQL_PASSWORD=P@ssw0rd
+      - MYSQL_ROOT_PASSWORD=P@ss0wrd
+      - TZ=Asia/Tokyo
+    ports:
+      - 3306:3306
+  api:
+    depends_on:
+      - mysql
+    build: src
+    links:
+      - mysql
+    ports:
+      - 8000:8000
+    volumes:
+      - ./src/app:/var/www/app
+    command: "run uvicorn main:app --host 0.0.0.0 --reload"
