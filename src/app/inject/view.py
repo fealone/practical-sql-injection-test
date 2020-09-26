@@ -11,7 +11,7 @@ router = APIRouter()
 
 
 request_error = HTTPException(
-        status_code=400,
+        status_code=404,
         detail="Not found"
         )
 
