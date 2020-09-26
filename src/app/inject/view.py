@@ -27,8 +27,11 @@ async def get_list(db: Session = Depends(get_db)) -> List[str]:
 async def get_item(name: str,
                    db: Session = Depends(get_db)) -> List[str]:
     query = "select name from public where name='{name}' limit 10;"
-    result = db.execute(query.format(name=name))
-    res = [item[0] for item in result]
+    try:
+        result = db.execute(query.format(name=name))
+        res = [item[0] for item in result]
+    except Exception:
+        raise request_error
     if not res:
         raise request_error
     return res
